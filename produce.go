@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-type kafkaProduce struct {
+type Produce struct {
 	brokerList []string
 	config     *sarama.Config
 	producer   sarama.SyncProducer
 }
 
-func NewKafkaProduce(bootstrapServers string) *kafkaProduce {
-	produce := &kafkaProduce{
+func NewKafkaProduce(bootstrapServers string) *Produce {
+	produce := &Produce{
 		config: sarama.NewConfig(),
 	}
 
@@ -24,7 +24,7 @@ func NewKafkaProduce(bootstrapServers string) *kafkaProduce {
 	return produce
 }
 
-func (k *kafkaProduce) Send(mess *sarama.ProducerMessage) error {
+func (k *Produce) Send(mess *sarama.ProducerMessage) error {
 	_, _, err := k.producer.SendMessage(mess)
 	if err != nil {
 		return err
@@ -32,11 +32,11 @@ func (k *kafkaProduce) Send(mess *sarama.ProducerMessage) error {
 	return nil
 }
 
-func (k *kafkaProduce) Stop() error {
+func (k *Produce) Stop() error {
 	return k.producer.Close()
 }
 
-func (k *kafkaProduce) Run() error {
+func (k *Produce) Run() error {
 	var err error
 	k.producer, err = sarama.NewSyncProducer(k.brokerList, k.config)
 	if err != nil {
