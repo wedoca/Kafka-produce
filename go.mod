@@ -1,4 +1,4 @@
-module github.com/wedoca/kafka-produce
+module github.com/wedoca/kafka_produce
 
 require (
 	github.com/DataDog/zstd v1.3.5 // indirect
