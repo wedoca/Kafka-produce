@@ -32,6 +32,14 @@ func (k *Produce) Send(mess *sarama.ProducerMessage) error {
 	return nil
 }
 
+func (k *Produce) Sends(mess []*sarama.ProducerMessage) error {
+	_, _, err := k.producer.SendMessages(mess)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k *Produce) Stop() error {
 	return k.producer.Close()
 }
