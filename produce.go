@@ -18,6 +18,7 @@ func NewKafkaProduce(bootstrapServers string) *Produce {
 
 	produce.config.Producer.RequiredAcks = sarama.WaitForAll
 	produce.config.Producer.Retry.Max = 5
+	produce.config.Producer.MaxMessageBytes = 2000000
 	produce.config.Producer.Return.Successes = true
 
 	produce.brokerList = strings.Split(bootstrapServers, ",")
