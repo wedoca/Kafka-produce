@@ -25,20 +25,12 @@ func NewKafkaProduce(bootstrapServers string) *Produce {
 	return produce
 }
 
-func (k *Produce) Send(mess *sarama.ProducerMessage) error {
-	_, _, err := k.producer.SendMessage(mess)
-	if err != nil {
-		return err
-	}
-	return nil
+func (k *Produce) Send(mess *sarama.ProducerMessage) (partition int32, offset int64, err error) {
+	return k.producer.SendMessage(mess)
 }
 
 func (k *Produce) Sends(mess []*sarama.ProducerMessage) error {
-	err := k.producer.SendMessages(mess)
-	if err != nil {
-		return err
-	}
-	return nil
+	return k.producer.SendMessages(mess)
 }
 
 func (k *Produce) Stop() error {
