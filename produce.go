@@ -15,7 +15,7 @@ func NewKafkaProduce(bootstrapServers string) *Produce {
 	produce := &Produce{
 		config: sarama.NewConfig(),
 	}
-
+	produce.config.Version = sarama.V0_10_0_0
 	produce.config.Producer.RequiredAcks = sarama.WaitForAll
 	produce.config.Producer.Retry.Max = 5
 	produce.config.Producer.MaxMessageBytes = 20000000
